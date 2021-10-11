@@ -1,0 +1,8 @@
+{
+    "author" : ["krak3n"],
+    "description" :"Play with other users to check who has the longest penis for fun.\nAlso shh its a **little** rigged for bot owner and the bot.\nUsage: \n`[p]penis <user>`",
+    "short": "Fight users with your penis.",    
+    "name" : "Penis",
+    "permissions": ["embed_links"],    
+    "tags" : ["fun"]
+}
