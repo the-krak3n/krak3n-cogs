@@ -4,6 +4,9 @@ from redbot.core import commands
 
 class Penis(commands.Cog):
     "Fight people with your penis and check who has the longest one"
+    
+    def __init__(self, bot):
+        self.bot = bot
 
     @commands.command(aliases=['pp'])
     async def penis(self, ctx, *, user: discord.Member = None):
