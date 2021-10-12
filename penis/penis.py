@@ -27,8 +27,9 @@ class Penis(commands.Cog):
         embed = discord.Embed(
             title="Penis size machine ",color=await ctx.embed_color()
         )     
-        if user.id == self.bot.user.id or self.bot.owner_ids:
-            embed.description=(f"**{user.name}'s penis:**\n8{'=' * random.randint(25,45)}D")
+        
+        if await self.bot.is_owner(user) or self.bot.user.id == user.id:
+            embed.description=(f"**{user.name}'s penis:**\n8{'=' * random.randint(30,69)}D")
         else:
             embed.description=(f"**{user.name}'s penis:**\n8{'=' * random.randint(0, 35)}D")
 
