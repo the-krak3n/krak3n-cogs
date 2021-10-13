@@ -40,6 +40,7 @@ class Penis(commands.Cog):
         await ctx.reply(embed=embed, mention_author=False)
 
     @commands.group()
+    @commands.is_owner()
     async def ppset(self, ctx):
         """Penis-related settings"""
 
