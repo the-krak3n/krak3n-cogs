@@ -3,7 +3,7 @@ import discord
 from redbot.core import commands, Config
 
 class Penis(commands.Cog):
-    "Fight people with your penis and check who has the longest one"
+    """Fight people with your penis and check who has the longest one"""
 
     __author__ = "krak3n & Aioxas"
 
@@ -44,7 +44,7 @@ class Penis(commands.Cog):
         """Penis-related settings"""
 
     @ppset.command(name="add")
-    async def pp_add(self, ctx: commands.Context, user: discord.Member = None):
+    async def pp_add(self, ctx: commands.Context, *, user: discord.Member = None):
         """Add a user to the rigged penis list. They have small pps tbh."""
         rigged = await self.config.rigged()
         if user.id in rigged:
@@ -76,7 +76,7 @@ class Penis(commands.Cog):
         await ctx.send(f"Current people with rigged pps are: {msg}")
 
     @ppset.command(name="remove")
-    async def pp_remove(self, ctx: commands.Context, user: discord.Member = None):
+    async def pp_remove(self, ctx: commands.Context, *, user: discord.Member = None):
         """Remove a user from rigged list cause they bumped their size somehow."""
         rigged = await self.config.rigged()
         if user.id not in rigged:
