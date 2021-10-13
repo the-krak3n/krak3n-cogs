@@ -45,6 +45,7 @@ class Penis(commands.Cog):
 
     @ppset.command(name="add")
     async def pp_add(self, ctx: commands.Context, user: discord.Member = None):
+        """Add a user to the rigged penis list. They have small pps tbh."""
         rigged = await self.config.rigged()
         if user.id in rigged:
             await ctx.send(f"{user.display_name} is already in the rigged list")
@@ -55,6 +56,7 @@ class Penis(commands.Cog):
 
     @ppset.command(name="list")
     async def pp_list(self, ctx: commands.Context):
+        """List the rigged people cause they have small pp."""
         rigged = await self.config.rigged()
         if len(rigged) < 1:
             await ctx.send(
@@ -75,6 +77,7 @@ class Penis(commands.Cog):
 
     @ppset.command(name="remove")
     async def pp_remove(self, ctx: commands.Context, user: discord.Member = None):
+        """Remove a user from rigged list cause they bumped their size somehow."""
         rigged = await self.config.rigged()
         if user.id not in rigged:
             await ctx.send(f"{user.display_name} is not in the rigged list.")
