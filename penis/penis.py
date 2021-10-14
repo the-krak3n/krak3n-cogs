@@ -33,9 +33,9 @@ class Penis(commands.Cog):
 
         rigged = await self.config.rigged()
         if await self.bot.is_owner(user) or self.bot.user.id == user.id or user.id in rigged:
-            embed.description=(f"**{user.name}'s penis:**\n8{'=' * random.randint(30,69)}D")
+            embed.description=(f"**{user}'s penis:**\n8{'=' * random.randint(30,69)}D")
         else:
-            embed.description=(f"**{user.name}'s penis:**\n8{'=' * random.randint(0, 35)}D")
+            embed.description=(f"**{user}'s penis:**\n8{'=' * random.randint(0, 35)}D")
 
         await ctx.reply(embed=embed, mention_author=False)
 
@@ -48,12 +48,14 @@ class Penis(commands.Cog):
     async def pp_add(self, ctx: commands.Context, *, user: discord.Member = None):
         """Add a user to the rigged penis list. They have small pps tbh."""
         rigged = await self.config.rigged()
+        if not user:
+            raise commands.UserInputError        
         if user.id in rigged:
-            await ctx.send(f"{user.display_name} is already in the rigged list")
+            await ctx.send(f"{user} is already in the rigged list")
         else:
             rigged.append(user.id)
             await self.config.rigged.set(rigged)
-            await ctx.send(f"{user.display_name} has been add to the rigged list.")
+            await ctx.send(f"{user} has been add to the rigged list.")
 
     @ppset.command(name="list")
     async def pp_list(self, ctx: commands.Context):
@@ -61,11 +63,10 @@ class Penis(commands.Cog):
         rigged = await self.config.rigged()
         if len(rigged) < 1:
             await ctx.send(
-                "Rigged list is currently empty, add new people to the rigged list using ppset add"
-                " <Discord name or nickname>"
+                f"Rigged list is currently empty. Add new people to the rigged pp list using `{ctx.clean_prefix}ppset add <Discord name or nickname>`"
             )
             return
-        rigged = [self.bot.get_user(rigged_id).display_name for rigged_id in rigged]
+        rigged = [self.bot.get_user(rigged_id).name for rigged_id in rigged]
         rigged = sorted(
             rigged,
             key=lambda item: (
@@ -74,15 +75,17 @@ class Penis(commands.Cog):
             ),
         )
         msg = ", ".join(rigged[:-2] + [" and ".join(rigged[-2:])])
-        await ctx.send(f"Current people with rigged pps are: {msg}")
+        await ctx.send(f"Current people with rigged pps are: `{msg}`")
 
     @ppset.command(name="remove")
     async def pp_remove(self, ctx: commands.Context, *, user: discord.Member = None):
         """Remove a user from rigged list cause they bumped their size somehow."""
         rigged = await self.config.rigged()
+        if not user:
+            raise commands.UserInputError        
         if user.id not in rigged:
-            await ctx.send(f"{user.display_name} is not in the rigged list.")
+            await ctx.send(f"{user} is not in the rigged list.")
         else:
             rigged.remove(user.id)
             await self.config.rigged.set(rigged)
-            await ctx.send(f"{user.display_name} has been removed from the rigged list.")
+            await ctx.send(f"{user} has been removed from the rigged list.")
