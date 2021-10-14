@@ -63,7 +63,7 @@ class Penis(commands.Cog):
         rigged = await self.config.rigged()
         if len(rigged) < 1:
             await ctx.send(
-                f"Rigged list is currently empty. Add new people to the rigged pp list using `{ctx.clean_prefix}ppset add <Discord name or nickname>`"
+                f"Rigged pp list is currently empty. Add new people to the rigged pp list using `{ctx.clean_prefix}ppset add <Discord name or nickname>`"
             )
             return
         rigged = [self.bot.get_user(rigged_id).name for rigged_id in rigged]
@@ -79,7 +79,7 @@ class Penis(commands.Cog):
 
     @ppset.command(name="remove")
     async def pp_remove(self, ctx: commands.Context, *, user: discord.Member = None):
-        """Remove a user from rigged list cause they bumped their size somehow."""
+        """Remove a user from rigged penis list cause they bumped their size somehow."""
         rigged = await self.config.rigged()
         if not user:
             raise commands.UserInputError        
