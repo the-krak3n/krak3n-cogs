@@ -51,11 +51,11 @@ class Penis(commands.Cog):
         if not user:
             raise commands.UserInputError        
         if user.id in rigged:
-            await ctx.send(f"{user} is already in the rigged list")
+            await ctx.send(f"{user} is already in the rigged pp list")
         else:
             rigged.append(user.id)
             await self.config.rigged.set(rigged)
-            await ctx.send(f"{user} has been add to the rigged list.")
+            await ctx.send(f"{user} has been added to the rigged pp list.")
 
     @ppset.command(name="list")
     async def pp_list(self, ctx: commands.Context):
@@ -84,8 +84,8 @@ class Penis(commands.Cog):
         if not user:
             raise commands.UserInputError        
         if user.id not in rigged:
-            await ctx.send(f"{user} is not in the rigged list.")
+            await ctx.send(f"{user} is not in the rigged pp list.")
         else:
             rigged.remove(user.id)
             await self.config.rigged.set(rigged)
-            await ctx.send(f"{user} has been removed from the rigged list.")
+            await ctx.send(f"{user} has been removed from the rigged pp list.")
