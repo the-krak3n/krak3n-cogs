@@ -1,6 +1,9 @@
 import random
+import asyncio
 import discord
 from redbot.core import commands, Config
+from redbot.core.utils.menus import start_adding_reactions
+from redbot.core.utils.predicates import ReactionPredicate
 
 
 class Penis(commands.Cog):
@@ -97,3 +100,23 @@ class Penis(commands.Cog):
             rigged.remove(user.id)
             await self.config.rigged.set(rigged)
             await ctx.send(f"{user} has been removed from the rigged pp list.")
+
+    @ppset.command(name="clear")
+    @commands.bot_has_permissions(add_reactions=True)
+    async def ppset_clear(self, ctx: commands.Context):
+        """Clear [botname]'s rigged penis list. They dont deserve it."""
+        rigged = await self.config.rigged()
+        msg = await ctx.send("Do you really dont want every user in the rigged pp list to be removed?")     
+        start_adding_reactions(msg, ReactionPredicate.YES_OR_NO_EMOJIS)
+        pred = ReactionPredicate.yes_or_no(msg, ctx.author)
+        try:
+            await self.bot.wait_for("reaction_add", check=pred, timeout=60)
+        except asyncio.TimeoutError:
+            await ctx.send("How rude..ignoring me.......")
+        else:
+            if pred.result is True:
+                rigged.clear()
+                await self.config.rigged.set(rigged)
+                await ctx.send("Removed everyone from the rigged pp list, they suck..")
+            else:    
+                await ctx.send("I guess you still want them to have their pp privileges, so I wont clear.")             
