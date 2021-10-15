@@ -7,11 +7,12 @@ class Penis(commands.Cog):
     """Fight people with your penis and check who has the longest one"""
 
     __author__ = "krak3n & Aioxas"
+    __version__ = 0.2
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         """Thanks Sinbad!"""
         pre_processed = super().format_help_for_context(ctx)
-        return f"{pre_processed}\n\nAuthor: {self.__author__}"
+        return f"{pre_processed}\n\nAuthor: {self.__author__}\nCog Version: {self.__version__}"
 
     def __init__(self, bot):
         self.bot = bot
@@ -58,11 +59,11 @@ class Penis(commands.Cog):
         if not user:
             raise commands.UserInputError
         if user.id in rigged:
-            await ctx.send(f"{user} is already in the rigged list")
+            await ctx.send(f"{user} is already in the rigged pp list")
         else:
             rigged.append(user.id)
             await self.config.rigged.set(rigged)
-            await ctx.send(f"{user} has been add to the rigged list.")
+            await ctx.send(f"{user} has been add to the rigged pp list.")
 
     @ppset.command(name="list")
     async def pp_list(self, ctx: commands.Context):
@@ -70,7 +71,7 @@ class Penis(commands.Cog):
         rigged = await self.config.rigged()
         if len(rigged) < 1:
             await ctx.send(
-                f"Rigged list is currently empty. Add new people to the rigged pp list using `{ctx.clean_prefix}ppset add <Discord name or nickname>`"
+                f"Rigged pp list is currently empty. Add new people to the list using `{ctx.clean_prefix}ppset add <Discord name or nickname>`"
             )
             return
         rigged = [self.bot.get_user(rigged_id).name for rigged_id in rigged]
@@ -86,13 +87,13 @@ class Penis(commands.Cog):
 
     @ppset.command(name="remove")
     async def pp_remove(self, ctx: commands.Context, *, user: discord.Member = None):
-        """Remove a user from rigged list cause they bumped their size somehow."""
+        """Remove a user from rigged penis list cause they bumped their size somehow."""
         rigged = await self.config.rigged()
         if not user:
             raise commands.UserInputError
         if user.id not in rigged:
-            await ctx.send(f"{user} is not in the rigged list.")
+            await ctx.send(f"{user} is not in the rigged pp list.")
         else:
             rigged.remove(user.id)
             await self.config.rigged.set(rigged)
-            await ctx.send(f"{user} has been removed from the rigged list.")
+            await ctx.send(f"{user} has been removed from the rigged pp list.")
