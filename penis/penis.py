@@ -2,6 +2,7 @@ import random
 import discord
 from redbot.core import commands, Config
 
+
 class Penis(commands.Cog):
     """Fight people with your penis and check who has the longest one"""
 
@@ -10,32 +11,38 @@ class Penis(commands.Cog):
     def format_help_for_context(self, ctx: commands.Context) -> str:
         """Thanks Sinbad!"""
         pre_processed = super().format_help_for_context(ctx)
-        return f"{pre_processed}\n\nAuthor: {self.__author__}"    
+        return f"{pre_processed}\n\nAuthor: {self.__author__}"
 
     def __init__(self, bot):
         self.bot = bot
-        self.config = Config.get_conf(self, identifier=98713798, force_registration=True)
+        self.config = Config.get_conf(
+            self, identifier=98713798, force_registration=True
+        )
         default_global = {"rigged": []}
         self.config.register_global(**default_global)
 
     @commands.command(aliases=["pp"])
-    @commands.cooldown(rate=1, per=3, type=commands.BucketType.user)    
-    @commands.bot_has_permissions(embed_links=True)     
+    @commands.cooldown(rate=1, per=3, type=commands.BucketType.user)
+    @commands.bot_has_permissions(embed_links=True)
     async def penis(self, ctx: commands.Context, *, user: discord.Member = None):
         """
         Displays user's penis size.
         """
         if not user:
-            user = ctx.author            
+            user = ctx.author
         embed = discord.Embed(
-            title="Penis size machine ",color=await ctx.embed_color()
-        )     
+            title="Penis size machine ", color=await ctx.embed_color()
+        )
 
         rigged = await self.config.rigged()
-        if await self.bot.is_owner(user) or self.bot.user.id == user.id or user.id in rigged:
-            embed.description=(f"**{user}'s penis:**\n8{'=' * random.randint(30,69)}D")
+        if (
+            await self.bot.is_owner(user)
+            or self.bot.user.id == user.id
+            or user.id in rigged
+        ):
+            embed.description = f"**{user}'s penis:**\n8{'=' * random.randint(30,69)}D"
         else:
-            embed.description=(f"**{user}'s penis:**\n8{'=' * random.randint(0, 35)}D")
+            embed.description = f"**{user}'s penis:**\n8{'=' * random.randint(0, 35)}D"
 
         await ctx.reply(embed=embed, mention_author=False)
 
@@ -49,7 +56,7 @@ class Penis(commands.Cog):
         """Add a user to the rigged penis list. They have small pps tbh."""
         rigged = await self.config.rigged()
         if not user:
-            raise commands.UserInputError        
+            raise commands.UserInputError
         if user.id in rigged:
             await ctx.send(f"{user} is already in the rigged list")
         else:
@@ -82,7 +89,7 @@ class Penis(commands.Cog):
         """Remove a user from rigged list cause they bumped their size somehow."""
         rigged = await self.config.rigged()
         if not user:
-            raise commands.UserInputError        
+            raise commands.UserInputError
         if user.id not in rigged:
             await ctx.send(f"{user} is not in the rigged list.")
         else:
