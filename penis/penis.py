@@ -63,7 +63,7 @@ class Penis(commands.Cog):
         else:
             rigged.append(user.id)
             await self.config.rigged.set(rigged)
-            await ctx.send(f"{user} has been add to the rigged pp list.")
+            await ctx.send(f"{user} has been added to the rigged pp list.")
 
     @ppset.command(name="list")
     async def pp_list(self, ctx: commands.Context):
