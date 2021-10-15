@@ -10,7 +10,7 @@ class Penis(commands.Cog):
     """Fight people with your penis and check who has the longest one"""
 
     __author__ = "krak3n & Aioxas"
-    __version__ = 0.2
+    __version__ = 0.3
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         """Thanks Sinbad!"""
